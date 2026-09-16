@@ -85,7 +85,9 @@ export function AddTask({ onAdd }: AddTaskProps) {
 
           <FieldGroup>
             <Field>
-              <Label htmlFor="task-title">Title</Label>
+              <Label htmlFor="task-title">
+                Title <span className="text-red-500" aria-hidden="true">*</span>
+              </Label>
               <Input
                 id="task-title"
                 name="title"
@@ -109,7 +111,9 @@ export function AddTask({ onAdd }: AddTaskProps) {
 
             <div className="grid grid-cols-2 gap-4">
               <Field>
-                <Label htmlFor="task-urgency">Urgency</Label>
+                <Label htmlFor="task-urgency">Urgency
+                    <span className="text-red-500" aria-hidden="true">*</span>
+                </Label>
                 <select
                   id="task-urgency"
                   name="urgency"
@@ -123,7 +127,9 @@ export function AddTask({ onAdd }: AddTaskProps) {
               </Field>
 
               <Field>
-                <Label htmlFor="task-importance">Importance</Label>
+                <Label htmlFor="task-importance">Importance
+                    <span className="text-red-500" aria-hidden="true">*</span>
+                </Label>
                 <select
                   id="task-importance"
                   name="importance"
