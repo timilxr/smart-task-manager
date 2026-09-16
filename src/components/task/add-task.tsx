@@ -20,7 +20,7 @@ import { Label } from "../ui/label";
 import { ITask } from "@/shared/models/task";
 
 type AddTaskProps = {
-  onAdd: (task: ITask) => void;
+  onAdd: (task: ITask) => Promise<void> | void;
 };
 
 export function AddTask({ onAdd }: AddTaskProps) {
@@ -31,7 +31,7 @@ export function AddTask({ onAdd }: AddTaskProps) {
   const [importance, setImportance] = useState<ITask["importance"]>("low");
   const [dueDate, setDueDate] = useState("");
 
-  const handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const trimmedTitle = title.trim();
@@ -50,7 +50,7 @@ export function AddTask({ onAdd }: AddTaskProps) {
       voiceTranscript: null,
     };
 
-    onAdd(newTask);
+    await onAdd(newTask);
     setTitle("");
     setDescription("");
     setUrgency("low");
