@@ -1,7 +1,6 @@
 "use client"
 
-import { useState } from 'react'
-
+import { useTask } from '@/hooks/use-task';
 import { LogoutButton } from '@/components/logout-button'
 import { AddTask } from '@/components/task/add-task';
 import { EisenhowerMatrix } from '@/components/task/eisenhower-matrix';
@@ -10,35 +9,8 @@ import { Card, CardContent, CardFooter } from '@/components/ui/card';
 import { ITask } from '@/shared/models/task';
 import { MdToday } from 'react-icons/md';
 
-const initialTasks: ITask[] = [
-    {
-        id: 1,
-        title: "Task 1",
-        description: "This is the first task",
-        completed: false,
-        urgency: "medium",
-        importance: "high",
-        dueDate: new Date(),
-        voiceTranscript: null
-    },
-    {
-        id: 2,
-        title: "Task 2",
-        description: "This is the second task",
-        completed: true,
-        urgency: "low",
-        importance: "medium",
-        dueDate: new Date(),
-        voiceTranscript: null
-    }
-]
-
-export function DashboardClient() {
-    const [tasks, setTasks] = useState<ITask[]>(initialTasks)
-
-    const handleAddTask = (task: ITask) => {
-        setTasks((currentTasks) => [task, ...currentTasks])
-    }
+export function DashboardClient({ initialTasks }: { initialTasks: ITask[] }) {
+    const { tasks, addTask, updateTask, error } = useTask(initialTasks)
 
     return (
         <div className="flex h-svh w-full items-center justify-center bg-white dark:bg-black">
@@ -72,13 +44,14 @@ export function DashboardClient() {
                 <div className="mb-4 flex items-center justify-between">
                     <h1 className="mb-3 text-5xl font-bold">Today</h1>
                     <div className="right">
-                        <AddTask onAdd={handleAddTask} />
+                        <AddTask onAdd={addTask} />
                     </div>
                 </div>
+                {error && <p className="mb-4 text-sm text-red-600">{error}</p>}
                 <EisenhowerMatrix tasks={tasks} />
                 <section className="mt-8">
                     <h2 className="mb-4 text-2xl font-semibold">All tasks</h2>
-                    <TaskList tasks={tasks} />
+                    <TaskList tasks={tasks} onToggleComplete={updateTask} />
                 </section>
             </div>
         </div>
