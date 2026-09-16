@@ -27,8 +27,8 @@ export function AddTask({ onAdd }: AddTaskProps) {
   const [open, setOpen] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [urgency, setUrgency] = useState<ITask["urgency"]>("medium");
-  const [importance, setImportance] = useState<ITask["importance"]>("medium");
+  const [urgency, setUrgency] = useState<ITask["urgency"]>("low");
+  const [importance, setImportance] = useState<ITask["importance"]>("low");
   const [dueDate, setDueDate] = useState("");
 
   const handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
@@ -53,8 +53,8 @@ export function AddTask({ onAdd }: AddTaskProps) {
     onAdd(newTask);
     setTitle("");
     setDescription("");
-    setUrgency("medium");
-    setImportance("medium");
+    setUrgency("low");
+    setImportance("low");
     setDueDate("");
     setOpen(false);
   };
@@ -118,7 +118,6 @@ export function AddTask({ onAdd }: AddTaskProps) {
                   className="h-8 w-full rounded-lg border border-input bg-transparent px-2.5 py-1 text-base outline-none transition-colors focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 md:text-sm"
                 >
                   <option value="low">Low</option>
-                  <option value="medium">Medium</option>
                   <option value="high">High</option>
                 </select>
               </Field>
@@ -133,7 +132,6 @@ export function AddTask({ onAdd }: AddTaskProps) {
                   className="h-8 w-full rounded-lg border border-input bg-transparent px-2.5 py-1 text-base outline-none transition-colors focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 md:text-sm"
                 >
                   <option value="low">Low</option>
-                  <option value="medium">Medium</option>
                   <option value="high">High</option>
                 </select>
               </Field>
