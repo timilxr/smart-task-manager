@@ -1,16 +1,24 @@
-import { Field, FieldContent, FieldDescription, FieldLabel, FieldTitle } from "../ui/field";
+import { Field, FieldContent, FieldDescription, FieldLabel } from "../ui/field";
 import { Checkbox } from "../ui/checkbox";
 import { ITask } from "@/shared/models/task";
 
-export function Task({task}: {readonly task: ITask}) {
+type TaskProps = {
+  readonly task: ITask;
+  readonly onToggleComplete?: (taskId: number, completed: boolean) => void;
+};
+
+export function Task({ task, onToggleComplete }: TaskProps) {
     const {completed, title, description, id} = task;
   return (
       <Field orientation="horizontal" data-disabled={completed}>
         <Checkbox
           id={`task-${id}`}
           name={`task-${id}`}
-          defaultChecked={completed}
-          disabled={completed}
+          checked={completed}
+          className={completed ? "border-gray-400 bg-gray-400 text-white" : undefined}
+          onCheckedChange={(checked) => {
+            onToggleComplete?.(id, checked === true);
+          }}
         />
         <FieldContent>
           <FieldLabel htmlFor={`task-${id}`}>
